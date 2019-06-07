@@ -23,8 +23,8 @@ class Nav extends Component {
 
       return (
       <ul className="nav">
-          <li className={location.pathname === '/Home' ? 'active' : null}>
-            <Link to="/Home">
+          <li className={location.pathname === '/' ? 'active' : null}>
+            <Link to="/">
               <i className="pe-7s-home"></i>
               <p>Home</p>
             </Link>
@@ -45,8 +45,8 @@ class Nav extends Component {
                   <li className={this.isPathActive('/addUser') ? 'active' : null}>
                   <Link to="/addUser">View Projects</Link>
                 </li>
-                <li className={this.isPathActive('/components/grid') ? 'active' : null}>
-                  <Link to="/components/grid">Project Sign up</Link>
+                <li className={this.isPathActive('/addUser') ? 'active' : null}>
+                  <Link to="/addUser">Project Sign up</Link>
                 </li>
               </ul>
             </div>

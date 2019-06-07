@@ -10,7 +10,7 @@ import Footer from './Footer';
 import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
-import addUser from '../Forms/RegularForms/StackedForm'
+import addUser from '../Forms/RegularForms/SignUp'
 import registerPackage from '../Forms/RegularForms/Register'
 /**
  * Pages
@@ -52,7 +52,7 @@ const Main = ({
         
           <Header /> 
           <Route exact path="/Login" component={Login} />
-          <Route exact path="/Home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />

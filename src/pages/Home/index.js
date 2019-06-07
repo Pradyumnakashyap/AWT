@@ -4,6 +4,8 @@ import TableWithLinks from '../Tables/ExtendedTables/ProjectsTable';
 import FormElements from '../Forms/RegularForms/FormElements';
 import Register from '../Forms/RegularForms/Register';
 import VectorMap from '../MapsPage/VectorMap';
+import Intro from './Intro'
+import MoreInfo from './MoreInfo'
 
 
 
@@ -41,10 +43,10 @@ import VectorMap from '../MapsPage/VectorMap';
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-6">
-              {/* <Intro /> */}
+              <Intro /> 
             </div>
             <div className="col-md-6">
-              {/* <MoreInfo /> */}
+              <MoreInfo />
             </div>
           </div>
           <div className="row">

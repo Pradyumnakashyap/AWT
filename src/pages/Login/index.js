@@ -1,0 +1,82 @@
+import React, { Component } from "react";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import "./Login.css";
+import LogoDC3 from 'assets/images/dc3_logo.jpg';
+import Footer from '../Main/Footer'
+
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    //TODO
+    if(this.state.email == "admin@dhl.com"){
+      this.props.history.push('/company');
+    }
+    else if(this.state.email == "postman@dhl.com"){
+      this.props.history.push('/postman');
+    }
+    else
+    {
+      this.props.history.push('/Dashboard');
+    }
+    
+  }
+
+  render() {
+    return (
+
+      
+      <div className="Login">
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="email" bsSize="large">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl
+              autoFocus
+              type="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+            />
+          </FormGroup>
+          <Button
+            block
+            bsSize="large"
+            disabled={!this.validateForm()}
+            type="submit"
+          >
+            Login
+          </Button>
+        </form>
+
+      </div>
+       
+      
+    );
+  }
+}
+

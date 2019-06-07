@@ -1,11 +1,6 @@
-//User dashboard file
-
 import React from 'react';
-//import EmailChart from './EmailChart';
-//import SalesChart from './SalesChart';
-//import UserBehaviorChart from './UserBehaviorChart';
 import Tasks from './Tasks';
-import TableWithLinks from '../Tables/ExtendedTables/TableWithLinks';
+import TableWithLinks from '../Tables/ExtendedTables/ProjectsTable';
 import FormElements from '../Forms/RegularForms/FormElements';
 import Register from '../Forms/RegularForms/Register';
 import VectorMap from '../MapsPage/VectorMap';
@@ -20,32 +15,6 @@ import VectorMap from '../MapsPage/VectorMap';
       }
     }
     
-    // {
-    //   userid:,
-    //   pickup:{
-    //     name:
-    //     pickupaddress:{
-    //       'street':''
-    //       country:
-    //       zip:
-    //       city:
-    //     }
-    //   },
-    //   drop:{
-    //     name:
-    //     email:
-    //     pickupaddress:{
-    //       'street':''
-    //       country:
-    //       zip:
-    //       city:
-    //     }
-    //   }
-
-
-   
-
-
     submit(values){
       console.log(values)
 

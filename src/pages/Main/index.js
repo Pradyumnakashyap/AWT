@@ -24,7 +24,7 @@ import Charts from '../Charts';
 import Calendar from '../Calendar';
 import Tables from '../Tables';
 import Detailed from '../Home/Detailed'
-import companyindex from '../Home/companyindex'
+import viewProjects from '../Home/viewProjects'
 import Login from '../Login'
 import postmanindex from '../Home/postmanIndex'
 
@@ -54,7 +54,7 @@ const Main = ({
           <Route exact path="/Login" component={Login} />
           <Route exact path="/Home" component={Home} />
           <Route exact path="/package/:OrderID" component={Detailed} />
-          <Route exact path="/company" component={companyindex} />
+          <Route exact path="/projects" component={viewProjects} />
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
           <Route path="/profile" component={UserProfile} />

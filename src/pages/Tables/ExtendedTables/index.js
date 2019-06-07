@@ -1,6 +1,6 @@
 import React from 'react';
 import TableWithSwitch from './TableWithSwitch';
-import TableWithLinks from './TableWithLinks';
+import TableWithLinks from './ProjectsTable';
 import BigTable from './BigTable';
 
 const ExtendedTables = () => (

@@ -41,7 +41,7 @@ export default class Login extends Component {
     }).then(function (data) {
       if (data.length > 0) {
         self.setState({ loginfailed: false });
-        self.props.history.push('/Dashboard');
+        self.props.history.push('/admin');
       }
       else {
         self.setState({ loginfailed: true });

@@ -1,8 +1,7 @@
-//Postman dashboard file
+//Admin dashboard file
 
 import React from "react";
 import PostmanTableWithLinks from "../Tables/ExtendedTables/PostmanTableWithLinks";
-import Register from "../Forms/RegularForms/Register";
 import PostmanHandoverTable from "../Tables/ExtendedTables/PostmanHandoverTable";
 
 class Dashboard extends React.Component {

@@ -25,6 +25,7 @@ import Calendar from '../Calendar';
 import Tables from '../Tables';
 import Detailed from '../Home/Detailed'
 import viewProjects from '../Home/viewProjects'
+import viewProjectsDetails from '../Home/viewProjectsDetails'
 import Login from '../Login'
 import postmanindex from '../Home/postmanIndex'
 
@@ -50,7 +51,10 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/Login" component={Login} />
           <Route exact path="/" component={Home} />
           <Route exact path="/package/:OrderID" component={Detailed} />
+          
           <Route exact path="/projects" component={viewProjects} />
+          <Route exact path="/projects/:projectId" component={viewProjectsDetails} />
+
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
           <Route path="/profile" component={UserProfile} />

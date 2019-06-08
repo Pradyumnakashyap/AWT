@@ -48,8 +48,8 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
 
         <div className="main-panel">
           <Header />
-          <Route exact path="/Login" component={Login} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/Login" component={Login} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           
           <Route exact path="/projects" component={viewProjects} />

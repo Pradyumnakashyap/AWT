@@ -3,12 +3,13 @@ import { Link, Redirect } from 'react-router-dom';
 
 class ProjectsTable extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       projects: [],
       isLoading: false,
-      error: null
+      error: null,
+      categoryId : this.props.categoryId
     }
   }
 
@@ -16,7 +17,7 @@ class ProjectsTable extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch(global.backendURL + "projects")
+    fetch(global.backendURL + "projects/category/"+this.props.categoryId)
       .then(function (response) {
         if (response.ok) {
           return response.json();
@@ -54,11 +55,9 @@ class ProjectsTable extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Pre-req</th>
-                <th>Max Students</th>
-                <th>Category</th>
+                <th>Title</th>                
+                <th>Pre-req</th>    
+                <th>Max Students</th>            
                 <th></th>
               </tr>
             </thead>
@@ -69,11 +68,10 @@ class ProjectsTable extends Component {
                     {item.ProjectId}
                   </Link>
                   </td>
-                  <td>{item.Title}</td>
-                  <td>{item.Description}</td>
+                  <td>{item.Title}</td>                  
                   <td>{item.Prereq}</td>
                   <td>{item.MaxStudent}</td>
-                  <td>{item.ShortName}</td>
+                  
                   <td className="text-middle">
                     <Link to={`/package/${item.ProjectId}`}>
                       <div className="btn btn-info" >info</div>

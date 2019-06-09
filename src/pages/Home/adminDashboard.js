@@ -1,8 +1,7 @@
-//Postman dashboard file
+//Admin dashboard file
 
 import React from "react";
-import PostmanTableWithLinks from "../Tables/ExtendedTables/PostmanTableWithLinks";
-import Register from "../Forms/RegularForms/Register";
+import StudentProjectsTable from "../Tables/ExtendedTables/StudentProjectsTable";
 import PostmanHandoverTable from "../Tables/ExtendedTables/PostmanHandoverTable";
 
 class Dashboard extends React.Component {
@@ -16,10 +15,10 @@ class Dashboard extends React.Component {
       <div className="content">
         <div className="container-fluid">
           <div className="row">
-            <PostmanTableWithLinks />
+            <StudentProjectsTable />
           </div>
           <div className="row">
-            <PostmanHandoverTable />
+            {/* <PostmanHandoverTable /> */}
           </div>
         </div>
       </div>

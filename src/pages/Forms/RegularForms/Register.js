@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
 import TextArea from "components/FormInputs/TextArea"
 import SingleSelect from "components/FormInputs/select"
+import { Alert } from "react-bootstrap";
 
 class Register extends React.Component {
     constructor(props) {
@@ -13,11 +14,13 @@ class Register extends React.Component {
             categoryId: 1,
             description: '',
             preReq: '',
+            registered:false,
             categoryOptions: [
                 {key:1, value:"TV Apps"},
                 {key:2, value:"Web Technologies"}
             ]
         };
+        this. handleSubmitLocal = this.handleSubmitLocal.bind(this);
     }
 
     handleChange = event => {
@@ -71,7 +74,8 @@ class Register extends React.Component {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            //console.log(data);
+            this.setState({registered: true});
         })
         .catch(err => console.log(err));
     }
@@ -83,6 +87,9 @@ class Register extends React.Component {
         return (
             <div className="card">
                 <div className="content">
+                    <Alert variant="success" className={this.state.registered ? 'visible' : 'hidden'}>
+                        New Project has been added
+                    </Alert>
                     <form onSubmit={this.handleSubmitLocal} className="form-horizontal">
 
                         <legend>Register New Project</legend>
@@ -155,7 +162,7 @@ class Register extends React.Component {
                                     helpText="as appear on reciever Mailbox" />
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-fill btn-info right">Submit</button>
+                        <button type="submit" className="btn btn-fill btn-info right">Add Project</button>
                     </form>
                 </div>
             </div>

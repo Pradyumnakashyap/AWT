@@ -1,41 +1,17 @@
 import React from 'react';
-import Tasks from './Tasks';
-import TableWithLinks from '../Tables/ExtendedTables/ProjectsTable';
-import FormElements from '../Forms/RegularForms/FormElements';
-import Register from '../Forms/RegularForms/Register';
-import VectorMap from '../MapsPage/VectorMap';
 import Intro from './Intro'
 import MoreInfo from './MoreInfo'
+import AboutFame from './AboutFame'
+import ContactInfo from './ContactInfo'
 
 
-
-// const Dashboard = () => (
-  class Dashboard extends React.Component{
-    constructor(){
-      super()
-      this.state = {
-      }
+class Dashboard extends React.Component {
+  constructor() {
+    super()
+    this.state = {
     }
-    
-    submit(values){
-      console.log(values)
-
-    fetch("http://localhost:8000/persons", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        fullname: "alon",
-        email: "alon@tk.com",
-        password: "321",
-        dateofbirth: "2010-04-30T22:00:00.000Z"
-      })
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
   }
+
 
   render() {
     return (
@@ -43,23 +19,37 @@ import MoreInfo from './MoreInfo'
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-6">
-              <Intro /> 
+              <Intro />
             </div>
             <div className="col-md-6">
               <MoreInfo />
             </div>
           </div>
           <div className="row">
-            {/* <div className="col-md-6">
-                  <VectorMap />
+            <div className="col-md-6">
+              <AboutFame />
+            </div>
+            <div className="col-md-6">
+              <ContactInfo />
+            </div>
+            <div className="col-md-6">
+              <div>
+                <div>
+                  <div>
+                    <h4>Powered By</h4>
+                    <div>
+                      <img src="https://www.fokus.fraunhofer.de/assets/logo-860812875da0f0aa4d5ea48e795aac93b09affdb637eae121b367da604de8737.png" />{" "}
+                    </div>
+                  </div>
+
+                  <a href="https://www.fokus.fraunhofer.de/en">
+                    <b>Visit our website</b>
+                  </a>
                 </div>
-                <div className="col-md-6">
-                  <Tasks />
-                </div> */}
-            {/* <div className="col-md-6">
-                  <StackedForm />
-                </div> */}
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     );

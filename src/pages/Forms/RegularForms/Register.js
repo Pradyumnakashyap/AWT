@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
 import TextArea from "components/FormInputs/TextArea"
+import SingleSelect from "components/FormInputs/select"
 
 class Register extends React.Component {
     constructor(props) {
@@ -11,21 +12,49 @@ class Register extends React.Component {
             noOfStudents: 3,
             categoryId: 1,
             description: '',
-            preReq: ''
-
+            preReq: '',
+            categoryOptions: [
+                {key:1, value:"TV Apps"},
+                {key:2, value:"Web Technologies"}
+            ]
         };
     }
 
     handleChange = event => {
         this.setState({
-          [event.target.id]: event.target.value
+            [event.target.id]: event.target.value
         });
-      }
+    }
+
+    //TODO load from database
+    componentDidMount1() {
+        this.setState({ isLoading: true });
+
+        fetch(global.backendURL+ "category")
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Something went wrong ...");
+                }
+            })
+            .then(data => {
+                
+                data.forEach(elemnt => {
+                    this.state.categoryOptions.push(elemnt);
+                });
+                this.setState({ isLoading: false });
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     handleSubmitLocal = e => {
-        
+
         e.preventDefault();
-        
+
         fetch(global.backendURL + "projects", {
             method: 'POST',
             headers: {
@@ -87,12 +116,13 @@ class Register extends React.Component {
                         <div className="form-group">
                             <label className="control-label col-md-3">Category</label>
                             <div className="col-md-9">
+
                                 <Field
-                                    name="street"
-                                    placeholder="berlinstr.88"
-                                    type="text"
+                                    name="category"
+                                    placeholder="select category"
+                                    options={this.state.categoryOptions}
                                     value={this.state.categoryId}
-                                    component={renderField} />
+                                    component={SingleSelect} />
                             </div>
                         </div>
 

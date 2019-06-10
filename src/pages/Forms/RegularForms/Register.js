@@ -1,152 +1,138 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
+import TextArea from "components/FormInputs/TextArea"
 
 class Register extends React.Component {
-    constructor(){
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-          package: {},
-          
-        }
+            title: '',
+            noOfStudents: 3,
+            categoryId: 1,
+            description: '',
+            preReq: ''
+
+        };
+    }
+
+    handleChange = event => {
+        this.setState({
+          [event.target.id]: event.target.value
+        });
       }
-    
+
+    handleSubmitLocal = e => {
         
+        e.preventDefault();
+        
+        fetch(global.backendURL + "projects", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Title: e.target[0].value,
+                Description: e.target[3].value,
+                CategoryID: e.target[2].value,
+                Prereq: e.target[4].value,
+                MaxStudent: e.target[1].value
+            })
 
-    render(){
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(err => console.log(err));
+    }
+
+
+
+    render() {
         const { handleSubmit } = this.props;
-        return(
+        return (
             <div className="card">
-                <div className="header">
-                    <h4>Register New Package</h4>
-                </div>
                 <div className="content">
-                    <form onSubmit={handleSubmit} className="form-horizontal">
+                    <form onSubmit={this.handleSubmitLocal} className="form-horizontal">
 
-                        <legend>Pickup Address</legend>
-
-                        <div className="form-group">
-                        <label className="control-label col-md-3">Name</label>
-                        <div className="col-md-9">
-                            <Field
-                            name="Sender Name"
-                            placeholder = "Joh Doe"
-                            type="text"
-                            component={renderField} 
-                            helpText="as appear on your Mailbox" /> 
-                        </div>
-                        </div>
+                        <legend>Register New Project</legend>
 
                         <div className="form-group">
-                        <label className="control-label col-md-3">country</label>
-                        <div className="col-md-9">
-                            <Field
-                            name="country"
-                            type="text"
-                            placeholder = "Germany"
-                            component={renderField} />
-                            {/* helpText="A block of help text that breaks onto a new line." /> */}
-                        </div>
-                        </div>
-
-                        <div className="form-group">
-                        <label className="control-label col-md-3">street</label>
-                        <div className="col-md-9">
-                            <Field
-                            name="street"
-                            placeholder = "berlinstr.88"
-                            type="text"
-                            component={renderField} />
-                        </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="control-label col-md-3">zip</label>
+                            <label className="control-label col-md-3">Title</label>
                             <div className="col-md-9">
                                 <Field
-                                name="zip"
-                                placeholder = "10235"
-                                type="text"
-                                component={renderField} />
+                                    name="projectTitle"
+                                    placeholder="Project Signup"
+                                    type="text"
+                                    value={this.state.title}
+                                    onChange={this.handleChange}
+                                    component={renderField} />
                             </div>
                         </div>
 
-
-                        <legend>Destenation Address</legend>
-
                         <div className="form-group">
-                            <label className="control-label col-md-3">Name</label>
+                            <label className="control-label col-md-3">No. of Students</label>
                             <div className="col-md-9">
                                 <Field
-                                name="dSender Name"
-                                placeholder = "Joh Doe"
-                                type="text"
-                                component={renderField} 
-                                helpText="as appear on reciever Mailbox" /> 
+                                    name="country"
+                                    type="number"
+                                    placeholder="3"
+                                    onChange={this.handleChange}
+                                    value={this.state.noOfStudents}
+                                    component={renderField} />
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <label className="control-label col-md-3">country</label>
+                            <label className="control-label col-md-3">Category</label>
                             <div className="col-md-9">
                                 <Field
-                                name="dcountry"
-                                type="text"
-                                placeholder = "Germany"
-                                component={renderField} />
-                                {/* helpText="A block of help text that breaks onto a new line." /> */}
+                                    name="street"
+                                    placeholder="berlinstr.88"
+                                    type="text"
+                                    value={this.state.categoryId}
+                                    component={renderField} />
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <label className="control-label col-md-3">street</label>
+                            <label className="control-label col-md-3">Description</label>
                             <div className="col-md-9">
                                 <Field
-                                name="dstreet"
-                                placeholder = "berlinstr.88"
-                                type="text"
-                                component={renderField} />
+                                    name="zip"
+                                    placeholder="10235"
+                                    type="text"
+                                    rows="10"
+                                    value={this.state.description}
+                                    component={TextArea} />
                             </div>
                         </div>
 
+
+
+
                         <div className="form-group">
-                            <label className="control-label col-md-3">zip</label>
+                            <label className="control-label col-md-3">Pre Requisites</label>
                             <div className="col-md-9">
                                 <Field
-                                name="dzip"
-                                placeholder = "10235"
-                                type="text"
-                                component={renderField} />
+                                    name="dSender Name"
+                                    placeholder="Joh Doe"
+                                    type="text"
+                                    rows="5"
+                                    component={TextArea}
+                                    value={this.state.preRequisites}
+                                    helpText="as appear on reciever Mailbox" />
                             </div>
                         </div>
-
-                        <legend>Sensors</legend>
-
-                        <div className="form-group">
-                            <label className="control-label col-md-3">Sensors</label>
-                            <div className="col-md-9 checkbox-group">
-                                <Field
-                                name="checkbox1"
-                                type="checkbox"
-                                label="Heat Sensor"
-                                component={renderField} />
-
-                                <Field
-                                name="checkbox2"
-                                type="checkbox"
-                                label="Pressure Sensors"
-                                component={renderField} />                           
-                            </div>
-                        </div>
-                        <button type="submit" className="btn btn-fill btn-info">Submit</button>
+                        <button type="submit" className="btn btn-fill btn-info right">Submit</button>
                     </form>
                 </div>
             </div>
-
         )
     }
 }
 
 export default reduxForm({
     form: 'formElements'
-  })(Register);
+})(Register);

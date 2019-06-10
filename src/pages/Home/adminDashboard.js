@@ -2,7 +2,8 @@
 
 import React from "react";
 import StudentProjectsTable from "../Tables/ExtendedTables/StudentProjectsTable";
-import PostmanHandoverTable from "../Tables/ExtendedTables/PostmanHandoverTable";
+import ProjectSignup from "../Tables/ExtendedTables/ProjectSignup";
+import ProjectRegister from "../Forms/RegularForms/Register"
 
 class Dashboard extends React.Component {
   constructor() {
@@ -15,10 +16,12 @@ class Dashboard extends React.Component {
       <div className="content">
         <div className="container-fluid">
           <div className="row">
-            <StudentProjectsTable />
-          </div>
-          <div className="row">
-            {/* <PostmanHandoverTable /> */}
+            <div className="col col-md-6">
+              <ProjectRegister />
+            </div>
+            <div className="col col-md-6">
+              <StudentProjectsTable />
+            </div>
           </div>
         </div>
       </div>

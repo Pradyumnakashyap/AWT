@@ -11,12 +11,11 @@ const Select = props => {
         onChange={props.handleChange}
         className="form-control"
       >
-        <option value="" disabled>
+        <option value="" enabled>
           {props.placeholder}
         </option>
         {props.options.map(option => {
           return (
-              
             <option key={option.key} value={option.key} label={option.value}>
               {option.value}
             </option>

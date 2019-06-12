@@ -17,7 +17,11 @@ class Register extends React.Component {
             registered:false,
             categoryOptions: [
                 {key:1, value:"TV Apps"},
-                {key:2, value:"Web Technologies"}
+                {key:2, value:"Web Technologies"},
+                {key:3, value:"Artificial intelligence"},
+                {key:4, value:"Multi Screen"},
+                {key:5, value:"Media Technology"},
+                {key:6, value:"Immersive Web"}
             ]
         };
         this. handleSubmitLocal = this.handleSubmitLocal.bind(this);

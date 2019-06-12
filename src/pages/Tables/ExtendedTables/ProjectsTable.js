@@ -73,7 +73,7 @@ class ProjectsTable extends Component {
                   <td>{item.MaxStudent}</td>
                   
                   <td className="text-middle">
-                    <Link to={`/package/${item.ProjectId}`}>
+                    <Link to={`/projects/${item.ProjectId}`}>
                       <div className="btn btn-info" >info</div>
                     </Link>
                   </td>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
+import authlib from '../../../config/authlib'
 
 class StudentProjectsTable extends Component {
   constructor() {
@@ -15,7 +16,8 @@ class StudentProjectsTable extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch(global.backendURL + "studentproject")
+    var options = authlib.getFetchOptions();
+    fetch(global.backendURL + "studentproject",options)
       .then(function(response) {
         if (response.ok) {
           return response.json();
@@ -69,7 +71,7 @@ class StudentProjectsTable extends Component {
                   <td>{item.StudentName}</td>
                   <td>{item.StudentEmail}</td>
                   <td>
-                    <Link to={`/package/${item.ProjectID}`} style={{ color: "blue" }}>                      
+                    <Link to={`/projects/${item.ProjectID}`} style={{ color: "blue" }}>                      
                       {item.ProjectID}
                     </Link>
                   </td>                  

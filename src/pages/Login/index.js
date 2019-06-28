@@ -3,16 +3,23 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import { Alert } from "react-bootstrap";
 import { len } from "gl-matrix/src/gl-matrix/vec3";
+import authLib from "../../config/authlib"
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
+    
+    var user= authLib.getUserObj();
+    if(user.accessToken) {      
+      props.history.push('/admin');
+    }
+    
     this.state = {
       email: "",
       password: "",
       loginfailed: false
     };
+
   }
 
   validateForm() {
@@ -27,25 +34,29 @@ export default class Login extends Component {
 
   checkLogin = async (email, password) => {
     let self = this;
-    fetch(global.backendURL + 'login', {
+    fetch(global.backendURL + 'loginAuth', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'UserEmail': email,
-        'UserPassword': password
+        'username': email,
+        'password': password
       })
     }).then(function (response) {
-      return response.json();
+      if (response.status == 200) return response.json();
+      else return null;
     }).then(function (data) {
-      if (data.length > 0) {
+      if (data.token) {
+        sessionStorage.setItem('userAuth', JSON.stringify(data));
         self.setState({ loginfailed: false });
         self.props.history.push('/admin');
       }
       else {
         self.setState({ loginfailed: true });
       };
+    }).catch(function (error) {
+      console.log(error);
     });
   }
 

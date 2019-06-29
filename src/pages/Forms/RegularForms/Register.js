@@ -4,6 +4,7 @@ import renderField from 'components/FormInputs/renderField';
 import TextArea from "components/FormInputs/TextArea"
 import SingleSelect from "components/FormInputs/select"
 import { Alert } from "react-bootstrap";
+import authlib from "../../../config/authlib"
 
 class Register extends React.Component {
     constructor(props) {
@@ -61,11 +62,13 @@ class Register extends React.Component {
     handleSubmitLocal = e => {
 
         e.preventDefault();
+        const options = authlib.getFetchOptions('POST');
 
         fetch(global.backendURL + "projects", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token':options.headers['x-access-token']
             },
             body: JSON.stringify({
                 Title: e.target[0].value,
@@ -74,7 +77,6 @@ class Register extends React.Component {
                 Prereq: e.target[4].value,
                 MaxStudent: e.target[1].value
             })
-
         })
         .then(res => res.json())
         .then(data => {

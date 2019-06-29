@@ -65,8 +65,11 @@ class Nav extends Component {
           <Collapse in={this.state.adminMenuOpen}>
             <div>
               <ul className="nav">
+              <li className={this.isPathActive('/projects') ? 'active' : null}>
+                  <Link to="/projects">View Projects</Link>
+                </li>
                 <li className={this.isPathActive('/category') ? 'active' : null}>
-                  <Link to="/projects">Categories</Link>
+                  <Link to="/category">Categories</Link>
                 </li>                
               </ul>
             </div>

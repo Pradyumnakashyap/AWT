@@ -16,19 +16,12 @@ import registerPackage from "../Forms/RegularForms/Register";
  * Pages
  */
 import Home from '../Home';
-import Components from '../Components';
-import UserProfile from '../UserProfile';
-import MapsPage from '../MapsPage';
-import Forms from '../Forms';
-import Charts from '../Charts';
-import Calendar from '../Calendar';
-import Tables from '../Tables';
-import Detailed from '../Home/Detailed'
 import viewProjects from '../Home/viewProjects'
 import viewProjectsDetails from '../Home/viewProjectsDetails'
 import Login from '../Login'
 import adminDashboard from '../Home/adminDashboard'
 import category from '../Home/categorypage'
+import studentProject from '../Home/StudentRegister'
 
 const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
   history.listen(() => {
@@ -55,6 +48,7 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/projects/:projectId" component={viewProjectsDetails} />
           <Route exact path="/admin" component={adminDashboard} />
           <Route exact path="/category" component={category} />
+          <Route exact path="/StudentRegister" component={studentProject} />
           <Footer />
         </div>
       </div>

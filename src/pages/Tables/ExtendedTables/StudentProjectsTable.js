@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
-import authlib from '../../../config/authlib'
+import authlib from '../../../config/authlib';
+import { CSVLink } from 'react-csv';
+
 
 class StudentProjectsTable extends Component {
   constructor() {
@@ -17,8 +19,8 @@ class StudentProjectsTable extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
     var options = authlib.getFetchOptions();
-    fetch(global.backendURL + "studentproject",options)
-      .then(function(response) {
+    fetch(global.backendURL + "studentproject", options)
+      .then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
@@ -34,7 +36,7 @@ class StudentProjectsTable extends Component {
         console.log(this.state.items);
         console.log(this.state.items.length);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -49,18 +51,26 @@ class StudentProjectsTable extends Component {
     // let { items, isShowingAlert } = this.state;
     return (
       <div className="card">
-        <div className="header">
-          <h4 className="title">Student Sign ups</h4>          
+        <div className="header row">
+          <div>
+            <h4 className="title">Student Sign ups</h4>
+          </div>
+          <div className="float:right">
+            <CSVLink data={this.state.items} filename={"studentSignup.csv"}  className="btn btn-primary">Excel Export</CSVLink>
+          </div>
+
+
         </div>
         <div className="content table-responsive table-full-width">
+
           <table className="table table-hover table-striped">
             <thead>
-              <tr>                
+              <tr>
                 <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Student Email</th>
                 <th>Project ID</th>
-                <th>Project Title</th>                
+                <th>Project Title</th>
                 <th>Preference</th>
               </tr>
             </thead>
@@ -71,12 +81,12 @@ class StudentProjectsTable extends Component {
                   <td>{item.StudentName}</td>
                   <td>{item.StudentEmail}</td>
                   <td>
-                    <Link to={`/projects/${item.ProjectID}`} style={{ color: "blue" }}>                      
+                    <Link to={`/projects/${item.ProjectID}`} style={{ color: "blue" }}>
                       {item.ProjectID}
                     </Link>
-                  </td>                  
+                  </td>
                   <td>{item.Title}</td>
-                  <td>{item.Preference}</td>                  
+                  <td>{item.Preference}</td>
                 </tr>
               ))}
             </tbody>

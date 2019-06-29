@@ -6,31 +6,31 @@ import { stat } from 'fs';
 
 class Nav extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
   state = {
-    persontype:1
+    persontype: 1
   };
 
   render() {
     let { location } = this.props;
     let qs = this.props.location.search.substr(1);
     this.state.persontype = qs.split('=')[1];
-    
-    const isUser = this.state.persontype==1;
 
-      return (
+    const isUser = this.state.persontype == 1;
+
+    return (
       <ul className="nav">
-          <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
-              <i className="pe-7s-home"></i>
-              <p>Home</p>
-            </Link>
-          </li>
+        <li className={location.pathname === '/' ? 'active' : null}>
+          <Link to="/">
+            <i className="pe-7s-home"></i>
+            <p>Home</p>
+          </Link>
+        </li>
 
-          <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
+        <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ componentMenuOpen: !this.state.componentMenuOpen })}
             data-toggle="collapse">
             <i className="pe-7s-plugin"></i>
@@ -42,28 +42,42 @@ class Nav extends Component {
           <Collapse in={this.state.componentMenuOpen}>
             <div>
               <ul className="nav">
-                  <li className={this.isPathActive('/projects') ? 'active' : null}>
-                    <Link to="/projects">View Projects</Link>
-                  </li>
+                <li className={this.isPathActive('/projects') ? 'active' : null}>
+                  <Link to="/projects">View Projects</Link>
+                </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">Project Sign up</Link>
                 </li>
               </ul>
             </div>
           </Collapse>
-    </li>
+        </li>
 
-    <li className={location.pathname === '/Login' ? 'active' : null}>
-            <Link to="/Login">
-              <i className="pe-7s-user"></i>
-              <p>Admin Login</p>
-            </Link>
-          </li>
-        </ul>
-      );
-    }
-    
-        
+        <li className={this.isPathActive('/admin') || this.state.adminMenuOpen ? 'active' : null}>
+          <a href="#admin" onClick={() => this.setState({ adminMenuOpen: !this.state.adminMenuOpen })}
+            data-toggle="collapse">
+            <i className="pe-7s-plugin"></i>
+            <p>
+            Admin
+            <b className="caret"></b>
+            </p>
+          </a>
+          <Collapse in={this.state.adminMenuOpen}>
+            <div>
+              <ul className="nav">
+                <li className={this.isPathActive('/category') ? 'active' : null}>
+                  <Link to="/projects">Categories</Link>
+                </li>                
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+
+      </ul>
+    );
+  }
+
+
 
   isPathActive(path) {
     return this.props.location.pathname.startsWith(path);

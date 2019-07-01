@@ -2,7 +2,7 @@
 
 import React from "react";
 import StudentProjectsTable from "../Tables/ExtendedTables/StudentProjectsTable";
-import ProjectSignup from "../Tables/ExtendedTables/ProjectSignup";
+import ProjectSignup from "./ProjectSignup";
 import ProjectRegister from "../Forms/RegularForms/Register"
 
 class Dashboard extends React.Component {

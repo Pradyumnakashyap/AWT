@@ -29,6 +29,7 @@ import viewProjectsDetails from '../Home/viewProjectsDetails'
 import Login from '../Login'
 import adminDashboard from '../Home/adminDashboard'
 import category from '../Home/categorypage'
+import ProjectSignup from '../Home/ProjectSignup'
 
 const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
   history.listen(() => {
@@ -55,6 +56,7 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/projects/:projectId" component={viewProjectsDetails} />
           <Route exact path="/admin" component={adminDashboard} />
           <Route exact path="/category" component={category} />
+          <Route exact path="/ProjectSignup" component={ProjectSignup} />
           <Footer />
         </div>
       </div>

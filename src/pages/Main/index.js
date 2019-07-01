@@ -28,6 +28,7 @@ import viewProjects from '../Home/viewProjects'
 import viewProjectsDetails from '../Home/viewProjectsDetails'
 import Login from '../Login'
 import adminDashboard from '../Home/adminDashboard'
+import category from '../Home/categorypage'
 
 const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
   history.listen(() => {
@@ -53,18 +54,7 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/projects" component={viewProjects} />
           <Route exact path="/projects/:projectId" component={viewProjectsDetails} />
           <Route exact path="/admin" component={adminDashboard} />
-
-
-          {/* TODO remove */}
-          <Route exact path="/package/:OrderID" component={Detailed} />          
-          <Route path="/components" component={Components} />
-          <Route path="/profile" component={UserProfile} />
-          <Route path="/forms" component={Forms} />
-          <Route path="/tables" component={Tables} />
-          <Route path="/maps" component={MapsPage} />
-          <Route path="/registerPackage" component={registerPackage} />
-          <Route path="/addUser" component={addUser} />
-
+          <Route exact path="/category" component={category} />
           <Footer />
         </div>
       </div>

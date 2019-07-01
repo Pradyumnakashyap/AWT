@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-class ProjectsTable extends Component {
+class CategoriesTable extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      projects: [],
+      categories: [],
       isLoading: false,
       error: null,
       categoryId: this.props.categoryId
@@ -17,7 +17,7 @@ class ProjectsTable extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch(global.backendURL + "projects/category/" + this.props.categoryId)
+    fetch(global.backendURL + "category",)
       .then(function (response) {
         if (response.ok) {
           return response.json();
@@ -28,7 +28,7 @@ class ProjectsTable extends Component {
       })
       .then((data) => {
         data.forEach(elemnt => {
-          this.state.projects.push(elemnt)
+          this.state.categories.push(elemnt)
         });
         this.setState({ isLoading: false });
       })
@@ -38,10 +38,10 @@ class ProjectsTable extends Component {
   }
 
 
-  deleteItem = projectId => {
-    //TODO: Remove it from the database
+  deleteItem = id => {
+    debugger;
     this.setState({
-      projects: this.state.projects.filter(item => item.ProjectId !== projectId)
+      categories: this.state.categories.filter(item => item.categoryId !== id)
     });
   }
 
@@ -49,7 +49,7 @@ class ProjectsTable extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">Projects</h4>
+          <h4 className="title">Categories</h4>
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
@@ -57,28 +57,25 @@ class ProjectsTable extends Component {
               <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Pre-req</th>
-                <th>Max Students</th>
+                <th>Description</th>
+                
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {this.state.projects.map(item => (
-                <tr key={item.ProjectId} >
-                  <td><Link to={`/projects/${item.ProjectId}`} style={{ color: 'blue' }}>
-                    {item.ProjectId}
+              {this.state.categories.map(item => (
+                <tr key={item.categoryId} >
+                  <td><Link to={`/projects/${item.categoryId}`} style={{ color: 'blue' }}>
+                    {item.categoryId}
                   </Link>
                   </td>
-                  <td>{item.Title}</td>
-                  <td>{item.Prereq}</td>
-                  <td>{item.MaxStudent}</td>
+                  <td>{item.ShortName}</td>
+                  <td>{item.LongName}</td>
+                  
 
                   <td className="text-middle">
-                    <Link to={`/projects/${item.ProjectId}`}>
-                      <div className="btn btn-info" >info</div>
-                    </Link>
-
-                    <button type="button" className="btn btn-warning" onClick={() => this.deleteItem(item.ProjectId)}  >
+                  
+                    <button type="button" className="btn btn-wide btn-warning" onClick={() => this.deleteItem(item.categoryId)}  >
                       <span className="btn-label">
                         <i className="fa fa-warning"></i>
                       </span> Delete
@@ -96,4 +93,4 @@ class ProjectsTable extends Component {
   }
 }
 
-export default ProjectsTable;
+export default CategoriesTable;

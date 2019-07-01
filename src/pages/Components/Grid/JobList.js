@@ -48,17 +48,17 @@ class JobList extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">Accept Handover Packages</h4>
+          <h4 className="title">Register for Projects</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
             <thead>
               <tr>
-                <th>Package ID</th>
-                <th>Releasing Postman</th>
-                <th>Releasing Company</th>
-                <th>Destination</th>
+                <th>Project ID</th>
+                <th>Project Title</th>
+                <th>Project Description</th>
+                <th>Status</th>
 
                 <th className="text-middle">Details</th>
               </tr>

@@ -15,7 +15,9 @@ class viewProjects extends React.Component {
         { id: 1, ShortName: "TV Apps" },
         { id: 2, ShortName: "Web Tech." },
         { id: 3, ShortName: "Multi Screen" },
-        { id: 4, ShortName: "Artificial Intelligence" }
+        { id: 4, ShortName: "Artificial Intelligence" },
+        { id: 5, ShortName: "Media Tech." },
+        { id: 6, ShortName: "Immersive web" }
       ]
     }
   }

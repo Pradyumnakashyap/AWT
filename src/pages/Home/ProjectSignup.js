@@ -4,46 +4,27 @@ import renderField from 'components/FormInputs/renderField';
 import TextArea from "components/FormInputs/TextArea"
 import SingleSelect from "components/FormInputs/select"
 import { Alert } from "react-bootstrap";
-import authlib from "../../config/authlib"
+import authLib from "../../config/authlib"
 
-    const validate = values => {
-      const errors = {};
-      if (!values.email) {
-        errors.email = 'Email is required';
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-     
-    
-      if (!values.name1) {
-        errors.name1 = 'Atleast one Student is required';
-      }
-      if (!values.number1) {
-        errors.name1 = 'Atleast one Student is required';
-      }
-      return errors;
+const fetchOption = authLib.getFetchOptions();
+
+const required= (value) => {
+    if (!value || value === "" || value==="select..."){
+        return "Atleast one student is required ! "
     }
-    
+    else{
+        return undefined 
+    }
+}
+
     class ProjectSignup extends React.Component {
       constructor(props) {
           super(props)
           this.state = {
-              title: '',
-              StudentID: '',
-              Preference1: '',
-              FullName: '',
-              Email: '',
               registered:false,
-              ProjectOptions: [
-                  {key:1, value:"TV Apps"},
-                  {key:2, value:"Web Technologies"},
-                  {key:3, value:"Artificial intelligence"},
-                  {key:4, value:"Multi Screen"},
-                  {key:5, value:"Media Technology"},
-                  {key:6, value:"Immersive Web"}
-              ]
+              ProjectOptions: []
           };
-          /*this. handleSubmitLocal = this.handleSubmitLocal.bind(this);*/
+          this. handleSubmit = this.handleSubmit.bind(this);
       }
 
     handleChange = event => {
@@ -55,54 +36,61 @@ import authlib from "../../config/authlib"
     componentDidMount() {
         this.setState({ isLoading: true });
 
-        fetch(global.backendURL+ "Projects")
-            .then(function (response) {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Something went wrong ...");
-                }
-            })
-            .then(data => {
-                
-                data.forEach(element => {
-                    this.state.ProjectOptions.push(element);
-                });
-                this.setState({ isLoading: false });
-                
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-   /* handleSubmitLocal = e => {
-
-        e.preventDefault();
-        const options = authlib.getFetchOptions('POST');
-
-        fetch(global.backendURL + "studentproject", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token':options.headers['x-access-token']
-            },
-            body: JSON.stringify({
-                Title: e.target[0].value,
-                StudentID: e.target[1].value,
-                Preference1: e.target[2].value,
-                MaxStudent: e.target[1].value
-            })
-        })
+        fetch(global.backendURL+ "Projects", fetchOption)
         .then(res => res.json())
-        .then(data => {
-            //console.log(data);
-            this.setState({registered: true});
-        })
-        .catch(err => console.log(err));
-    }
-*/
+        .then(
+            (data) => {
+            data.forEach(Projects => {
+                this.state.ProjectOptions.push({ name: Projects.Name, value: Projects.Id })
+            })
+        })                          
+          .catch(function(error){
+              console.log(error)
+    });   
+  }
 
+    handleSubmit(values) {
+        values.preventDefault(); 
+      
+    
+        console.log(values)
+    
+        fetch("http://localhost:8000/studentproject", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': fetchOption.headers['x-access-token']
+          },
+          body: JSON.stringify({
+            
+            "studentid": values.target[1].value,
+            "projectid": values.target[10].value,
+            "preference": 1,
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data)
+          })
+          fetch("http://localhost:8000/students", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': fetchOption.headers['x-access-token']
+          },
+          body: JSON.stringify({
+            
+            "studentid": values.target[1].value,
+            "name": values.target[0].value,
+            "email": values.target[2].value,
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data)
+            this.setState({ registered: true });
+          })
+      }
 
     render() {
         const { handleSubmit } = this.props;
@@ -112,7 +100,7 @@ import authlib from "../../config/authlib"
                     <Alert variant="success" className={this.state.registered ? 'visible' : 'hidden'}>
                         Your selection has been completed
                     </Alert>
-                    <form onSubmit={this.handleSubmitLocal} className="form-horizontal">
+                    <form onSubmit={this.handleSubmit} className="form-horizontal">
 
                         <legend>Signup for a Project</legend>
                         <heading> STUDENT 1 </heading>
@@ -122,7 +110,8 @@ import authlib from "../../config/authlib"
                                 <Field
                                     name="name1"
                                     placeholder="First and Last name"
-                                    type="text"                     
+                                    type="text"    
+                                    validate = {required}                  
                                     component={renderField} />
                             </div>
                         </div>
@@ -133,6 +122,7 @@ import authlib from "../../config/authlib"
                                 <Field
                                     name="number1"
                                     type="number"
+                                    validate = {required} 
                                     placeholder="six digits"                                  
                                     component={renderField} />
                             </div>
@@ -144,6 +134,7 @@ import authlib from "../../config/authlib"
                                 <Field
                                     name="email"
                                     type="email"
+                                    validate = {required} 
                                     placeholder="Please enter your email"                                    
                                     component={renderField} />
                             </div>
@@ -219,44 +210,56 @@ import authlib from "../../config/authlib"
                         </div>
 
 
-                        <div className="form-group">
-                            <label className="control-label col-md-3">Preference 1 </label>
-                            <div className="col-md-9">
+                        <legend>Preference1</legend>
 
-                                <Field
-                                    name="category"
-                                    placeholder="select category"
-                                    options={this.state.ProjectOptions}
-                                    value={this.state.projectId}
-                                    component={SingleSelect} />
+                            <div>
+                                <div>
+                                <select  
+                                    value={this.props.chosenProject.Title}
+                                    onChange={this.props.handleChange}
+                                    name="chosenProject"
+                                    class="required"
+
+                                > 
+                                    <option selected="selected">select...</option>
+                                    {this.state.ProjectOptions.map((Projects) => <option key={Projects.Name} value={Projects.Id}>{Projects.Name}</option>)}
+                                </select>
                             </div>
                         </div>
 
-                        <div className="form-group">
-                            <label className="control-label col-md-3">Preference 2 </label>
-                            <div className="col-md-9">
+                        <legend>Preference2</legend>
 
-                                <Field
-                                    name="category"
-                                    placeholder="select category"
-                                    options={this.state.ProjectOptions}
-                                    value={this.state.projectId}
-                                    component={SingleSelect} />
+                            <div>
+                              <div>
+                              <select  
+                                value={this.props.chosenProject.Title}
+                                onChange={this.props.handleChange}
+                                name="chosenProject"
+                                class="required"
+
+                                > 
+                                    <option selected="selected">select...</option>
+                                    {this.state.ProjectOptions.map((Projects) => <option key={Projects.Name} value={Projects.Id}>{Projects.Name}</option>)}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="form-group">
-                            <label className="control-label col-md-3">Preference 3 </label>
-                            <div className="col-md-9">
+                            <legend>Preference3</legend>
 
-                                <Field
-                                    name="category"
-                                    placeholder="select category"
-                                    options={this.state.ProjectOptions}
-                                    value={this.state.projectId}
-                                    component={SingleSelect} />
+                            <div>
+                            <div>
+                            <select  
+                                value={this.props.chosenProject.Title}
+                                onChange={this.props.handleChange}
+                                name="chosenProject"
+                                class="required"
+
+                                > 
+                                    <option selected="selected">select...</option>
+                                    {this.state.ProjectOptions.map((Projects) => <option key={Projects.Name} value={Projects.Id}>{Projects.Name}</option>)}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
 
 
@@ -269,6 +272,5 @@ import authlib from "../../config/authlib"
 }
 
 export default reduxForm({
-    form: 'formElements',
-    validate
+    form: 'formElements'
 })(ProjectSignup);

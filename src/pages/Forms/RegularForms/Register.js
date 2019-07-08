@@ -164,8 +164,7 @@ class Register extends React.Component {
                                     type="text"
                                     rows="5"
                                     component={TextArea}
-                                    value={this.state.preRequisites}
-                                    helpText="as appear on reciever Mailbox" />
+                                    value={this.state.preRequisites}/>
                             </div>
                         </div>
                         <button type="submit" className="btn btn-fill btn-info right">Add Project</button>

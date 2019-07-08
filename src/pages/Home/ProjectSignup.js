@@ -51,8 +51,34 @@ const required= (value) => {
 
     handleSubmit(values) {
         values.preventDefault(); 
-      
-    
+        const elements = [
+            {
+                "studentid":1,
+                "projectid":1,
+                "preference":1
+            },
+                {
+                "studentid":1,
+                "projectid":2,
+                "preference":2
+            },
+            {
+                "studentid":1,
+                "projectid":3,
+                "preference":3
+            }
+        ]
+
+        var postdata = [];
+
+        var projectObj = {
+            studentid:1,
+            projectId:1,
+            preference:1
+        }
+        postdata.push(projectObj);
+
+
         console.log(values)
     
         fetch("http://localhost:8000/studentproject", {
@@ -215,7 +241,7 @@ const required= (value) => {
                             <div>
                                 <div>
                                 <select  
-                                    value={this.props.chosenProject.Title}
+                                    // value={this.props.chosenProject.Title}
                                     onChange={this.props.handleChange}
                                     name="chosenProject"
                                     class="required"
@@ -232,7 +258,7 @@ const required= (value) => {
                             <div>
                               <div>
                               <select  
-                                value={this.props.chosenProject.Title}
+                                // value={this.props.chosenProject.Title}
                                 onChange={this.props.handleChange}
                                 name="chosenProject"
                                 class="required"
@@ -249,7 +275,7 @@ const required= (value) => {
                             <div>
                             <div>
                             <select  
-                                value={this.props.chosenProject.Title}
+                                // value={this.props.chosenProject.Title}
                                 onChange={this.props.handleChange}
                                 name="chosenProject"
                                 class="required"

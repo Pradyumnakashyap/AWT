@@ -58,18 +58,18 @@ class ProjectSignup extends React.Component {
         if ((values.target['pref1'].value == values.target['pref2'].value) ||
             (values.target['pref3'].value == values.target['pref2'].value) ||
             (values.target['pref1'].value == values.target['pref3'].value) ||
-            
-            (values.target['pref1'].value == 'select...')  ||
-            (values.target['pref2'].value == 'select...')  ||
-            (values.target['pref3'].value == 'select...')  
-            ) {
+
+            (values.target['pref1'].value == 'select...') ||
+            (values.target['pref2'].value == 'select...') ||
+            (values.target['pref3'].value == 'select...')
+        ) {
             alert('Please select appropriate projects');
             return;
         }
 
 
         var arr = [];
-        
+
         //Insert rows for student# 1
 
         //pref#1
@@ -150,24 +150,47 @@ class ProjectSignup extends React.Component {
             .then(data => {
                 console.log(data)
             })
-        //   fetch("http://localhost:8000/students", {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'x-access-token': fetchOption.headers['x-access-token']
-        //   },
-        //   body: JSON.stringify({
 
-        //     "studentid": values.target[1].value,
-        //     "name": values.target[0].value,
-        //     "email": values.target[2].value,
-        //   })
-        // })
-        //   .then(res => res.json())
-        //   .then(data => {
-        //     console.log(data)
-        //     this.setState({ registered: true });
-        //   })
+        //update the student info as well 
+        studentId = values.target['matric3'].value
+        var students = [];
+        students.push({
+
+            "studentid": values.target['matric1'].value,
+            "name": values.target['name1'].value,
+            "email": values.target['email1'].value,
+        });
+        if (values.target['matric2'].value) {
+            students.push({
+
+                "studentid": values.target['matric2'].value,
+                "name": values.target['name2'].value,
+                "email": values.target['email2'].value,
+            });
+        }
+        if (values.target['matric3'].value) {
+            students.push({
+
+                "studentid": values.target['matric3'].value,
+                "name": values.target['name3'].value,
+                "email": values.target['email3'].value,
+            });
+        }
+
+
+        fetch("http://localhost:8000/studentsBulk", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': fetchOption.headers['x-access-token']
+            },
+            body: JSON.stringify(students)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                this.setState({ registered: true });
+            });
     }
 
     render() {

@@ -4,11 +4,17 @@ import React from "react";
 import StudentProjectsTable from "../Tables/ExtendedTables/StudentProjectsTable";
 import ProjectSignup from "../Tables/ExtendedTables/ProjectSignup";
 import ProjectRegister from "../Forms/RegularForms/Register"
+import authlib from "../../config/authlib"
 
 class Dashboard extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
+
+    if(!authlib.isLoggedIn()) {
+      
+      this.props.history.push("/login");
+    }
   }
 
   render() {

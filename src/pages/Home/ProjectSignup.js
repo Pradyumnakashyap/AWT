@@ -54,7 +54,6 @@ class ProjectSignup extends React.Component {
 
     handleSubmit(values) {
         values.preventDefault();
-        debugger;
         if ((values.target['pref1'].value == values.target['pref2'].value) ||
             (values.target['pref3'].value == values.target['pref2'].value) ||
             (values.target['pref1'].value == values.target['pref3'].value) ||
@@ -178,13 +177,36 @@ class ProjectSignup extends React.Component {
         }
 
 
-        fetch("http://localhost:8000/studentsBulk", {
+        fetch(global.backendURL + "studentsBulk", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'x-access-token': fetchOption.headers['x-access-token']
             },
             body: JSON.stringify(students)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                this.setState({ registered: true });
+            });
+
+        var message = "You have been signed up for the project. Registered team Emails are  ";
+        message += values.target['email1'].value + " ";
+        message += values.target['email2'].value + " ";
+        message += values.target['email3'].value + " ";
+
+        fetch(global.backendURL + "sendemail", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': fetchOption.headers['x-access-token']
+            },
+            body: JSON.stringify({
+                email: values.target['email1'].value,
+                subject: 'Project Sign-up',
+                message: message
+            })
         })
             .then(res => res.json())
             .then(data => {

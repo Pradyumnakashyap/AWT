@@ -360,8 +360,22 @@ class ProjectSignup extends React.Component {
                             </div>
                         </div>
 
+                       
 
+                        <div className="form-group">
+                        <label className="control-label col-md-3"></label>
+                        <div className="col-md-9 checkbox-group">
+                        <a href='https://gdprchecklist.io/'> 
+                        <Field
+                            name="checkbox1"
+                            type="checkbox"
+                            label="I hereby Agree to comply by the "
+                            validate={required1}
+                            component={renderField} />
 
+GDPR regulations </a>
+                        </div>                           
+                        </div>
                         <button type="submit" className="btn btn-fill btn-info right">Sign Up</button>
                     </form>
                 </div>
@@ -371,5 +385,5 @@ class ProjectSignup extends React.Component {
 }
 
 export default reduxForm({
-    form: 'formElements'
+    form: 'formElements',
 })(ProjectSignup);

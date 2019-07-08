@@ -51,6 +51,7 @@ export default class Login extends Component {
         sessionStorage.setItem('userAuth', JSON.stringify(data));
         self.setState({ loginfailed: false });
         self.props.history.push('/admin');
+        global.IsAuthenticated = true;
       }
       else {
         self.setState({ loginfailed: true });

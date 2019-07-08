@@ -5,27 +5,29 @@ import TextArea from "components/FormInputs/TextArea"
 import SingleSelect from "components/FormInputs/select"
 import { Alert } from "react-bootstrap";
 import authLib from "../../config/authlib"
+import { options } from 'sw-toolbox';
 
 const fetchOption = authLib.getFetchOptions();
 
-const required= (value) => {
-    if (!value || value === "" || value==="select..."){
+const required = (value) => {
+    if (!value || value === "" || value === "select...") {
         return "Atleast one student is required ! "
     }
-    else{
-        return undefined 
+    else {
+        return undefined
     }
 }
 
-    class ProjectSignup extends React.Component {
-      constructor(props) {
-          super(props)
-          this.state = {
-              registered:false,
-              ProjectOptions: []
-          };
-          this. handleSubmit = this.handleSubmit.bind(this);
-      }
+
+class ProjectSignup extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            registered: false,
+            ProjectOptions: []
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
     handleChange = event => {
         this.setState({
@@ -36,69 +38,118 @@ const required= (value) => {
     componentDidMount() {
         this.setState({ isLoading: true });
 
-        fetch(global.backendURL+ "Projects", fetchOption)
-        .then(res => res.json())
-        .then(
-            (data) => {
-            data.forEach(Projects => {
-                this.state.ProjectOptions.push({ name: Projects.Name, value: Projects.Id })
-            })
-        })                          
-          .catch(function(error){
-              console.log(error)
-    });   
-  }
+        fetch(global.backendURL + "Projects", fetchOption)
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    data.forEach(project => {
+                        this.state.ProjectOptions.push({ text: project.Title, value: project.ProjectId })
+                    });
+                    this.setState({ isLoading: false });
+                })
+            .catch(function (error) {
+                console.log(error)
+            });
+    }
 
     handleSubmit(values) {
-        values.preventDefault(); 
-        const elements = [
-            {
-                "studentid":1,
-                "projectid":1,
-                "preference":1
-            },
-                {
-                "studentid":1,
-                "projectid":2,
-                "preference":2
-            },
-            {
-                "studentid":1,
-                "projectid":3,
-                "preference":3
-            }
-        ]
+        values.preventDefault();
+        debugger;
+        if ((values.target['pref1'].value == values.target['pref2'].value) ||
+            (values.target['pref3'].value == values.target['pref2'].value) ||
+            (values.target['pref1'].value == values.target['pref3'].value) ||
+            
+            (values.target['pref1'].value == 'select...')  ||
+            (values.target['pref2'].value == 'select...')  ||
+            (values.target['pref3'].value == 'select...')  
+            ) {
+            alert('Please select appropriate projects');
+            return;
+        }
 
-        // var postdata = [];
 
-        // var projectObj = {
-        //     studentid:1,
-        //     projectId:1,
-        //     preference:1
-        // }
-        // postdata.push(projectObj);
+        var arr = [];
+        
+        //Insert rows for student# 1
+
+        //pref#1
+        arr.push({
+            "studentid": values.target['matric1'].value,
+            "projectid": values.target['pref1'].value,
+            "preference": 1
+        });
+
+        arr.push({
+            "studentid": values.target['matric1'].value,
+            "projectid": values.target['pref2'].value,
+            "preference": 2
+        });
+        arr.push({
+            "studentid": values.target['matric1'].value,
+            "projectid": values.target['pref3'].value,
+            "preference": 3
+        });
+
+        //row for student #
+        var studentId = values.target['matric2'].value
+        if (studentId) {
+            //pref#1
+            arr.push({
+                "studentid": studentId,
+                "projectid": values.target['pref1'].value,
+                "preference": 1
+            });
+
+            arr.push({
+                "studentid": studentId,
+                "projectid": values.target['pref2'].value,
+                "preference": 2
+            });
+            arr.push({
+                "studentid": studentId,
+                "projectid": values.target['pref3'].value,
+                "preference": 3
+            });
+        }
+
+        //row for student #3
+        studentId = values.target['matric3'].value
+        if (studentId) {
+            //pref#1
+            arr.push({
+                "studentid": studentId,
+                "projectid": values.target['pref1'].value,
+                "preference": 1
+            });
+
+            arr.push({
+                "studentid": studentId,
+                "projectid": values.target['pref2'].value,
+                "preference": 2
+            });
+            arr.push({
+                "studentid": studentId,
+                "projectid": values.target['pref3'].value,
+                "preference": 3
+            });
+        }
+
 
 
         console.log(values)
-        
-        
-        fetch("http://localhost:8000/studentproject", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': fetchOption.headers['x-access-token']
-          },
-          body: JSON.stringify({
-            
-            "studentid": el,
-            "projectid": values.target[10].value,
-            "preference": 1,
-          })
+
+
+        fetch("http://localhost:8000/studentprojectbulk", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': fetchOption.headers['x-access-token']
+            },
+            body: JSON.stringify(arr)
         })
-          .then(res => res.json())
-          .then(data => {
-            console.log(data)
-          })
+            .then(data => {
+                console.log(data)
+            })
         //   fetch("http://localhost:8000/students", {
         //   method: 'POST',
         //   headers: {
@@ -106,7 +157,7 @@ const required= (value) => {
         //     'x-access-token': fetchOption.headers['x-access-token']
         //   },
         //   body: JSON.stringify({
-            
+
         //     "studentid": values.target[1].value,
         //     "name": values.target[0].value,
         //     "email": values.target[2].value,
@@ -117,7 +168,7 @@ const required= (value) => {
         //     console.log(data)
         //     this.setState({ registered: true });
         //   })
-      }
+    }
 
     render() {
         const { handleSubmit } = this.props;
@@ -137,8 +188,8 @@ const required= (value) => {
                                 <Field
                                     name="name1"
                                     placeholder="First and Last name"
-                                    type="text"    
-                                    validate = {required}                  
+                                    type="text"
+                                    validate={required}
                                     component={renderField} />
                             </div>
                         </div>
@@ -147,10 +198,10 @@ const required= (value) => {
                             <label className="control-label col-md-3">Matriculation Number</label>
                             <div className="col-md-9">
                                 <Field
-                                    name="number1"
+                                    name="matric1"
                                     type="number"
-                                    validate = {required} 
-                                    placeholder="six digits"                                  
+                                    validate={required}
+                                    placeholder="six digits"
                                     component={renderField} />
                             </div>
                         </div>
@@ -159,10 +210,10 @@ const required= (value) => {
                             <label className="control-label col-md-3">Email</label>
                             <div className="col-md-9">
                                 <Field
-                                    name="email"
+                                    name="email1"
                                     type="email"
-                                    validate = {required} 
-                                    placeholder="Please enter your email"                                    
+                                    validate={required}
+                                    placeholder="Please enter your email"
                                     component={renderField} />
                             </div>
                         </div>
@@ -175,7 +226,7 @@ const required= (value) => {
                                 <Field
                                     name="name2"
                                     placeholder="First and Last name"
-                                    type="text"                                    
+                                    type="text"
                                     component={renderField} />
                             </div>
                         </div>
@@ -184,9 +235,9 @@ const required= (value) => {
                             <label className="control-label col-md-3">Matriculation Number</label>
                             <div className="col-md-9">
                                 <Field
-                                    name="number2"
+                                    name="matric2"
                                     type="number"
-                                    placeholder="six digits"                                    
+                                    placeholder="six digits"
                                     component={renderField} />
                             </div>
                         </div>
@@ -195,9 +246,9 @@ const required= (value) => {
                             <label className="control-label col-md-3">Email</label>
                             <div className="col-md-9">
                                 <Field
-                                    name="email1"
+                                    name="email2"
                                     type="email"
-                                    placeholder="Please enter your email"                                    
+                                    placeholder="Please enter your email"
                                     component={renderField} />
                             </div>
                         </div>
@@ -209,7 +260,7 @@ const required= (value) => {
                                 <Field
                                     name="name3"
                                     placeholder="First and Last name"
-                                    type="text"                                    
+                                    type="text"
                                     component={renderField} />
                             </div>
                         </div>
@@ -218,9 +269,9 @@ const required= (value) => {
                             <label className="control-label col-md-3">Matriculation Number</label>
                             <div className="col-md-9">
                                 <Field
-                                    name="number3"
+                                    name="matric3"
                                     type="number"
-                                    placeholder="six digits"                                    
+                                    placeholder="six digits"
                                     component={renderField} />
                             </div>
                         </div>
@@ -229,9 +280,9 @@ const required= (value) => {
                             <label className="control-label col-md-3">Email</label>
                             <div className="col-md-9">
                                 <Field
-                                    name="email2"
+                                    name="email3"
                                     type="email"
-                                    placeholder="Please enter your email"                                    
+                                    placeholder="Please enter your email"
                                     component={renderField} />
                             </div>
                         </div>
@@ -239,54 +290,52 @@ const required= (value) => {
 
                         <legend>Preference1</legend>
 
+                        <div>
                             <div>
-                                <div>
-                                <select  
-                                    // value={this.props.chosenProject.Title}
+                                <select
+                                    //value={this.props.chosenProject.Title}
                                     onChange={this.props.handleChange}
-                                    name="chosenProject"
-                                    class="required"
-
-                                > 
+                                    name="pref1"
+                                    class="required">
                                     <option selected="selected">select...</option>
-                                    {this.state.ProjectOptions.map((Projects) => <option key={Projects.Name} value={Projects.Id}>{Projects.Name}</option>)}
+                                    {this.state.ProjectOptions.map((project) => <option value={project.value}>{project.text}</option>)}
                                 </select>
                             </div>
                         </div>
 
                         <legend>Preference2</legend>
 
+                        <div>
                             <div>
-                              <div>
-                              <select  
-                                // value={this.props.chosenProject.Title}
-                                onChange={this.props.handleChange}
-                                name="chosenProject"
-                                class="required"
+                                <select
+                                    // value={this.props.chosenProject.Title}
+                                    onChange={this.props.handleChange}
+                                    name="pref2"
+                                    class="required"
 
-                                > 
+                                >
                                     <option selected="selected">select...</option>
-                                    {this.state.ProjectOptions.map((Projects) => <option key={Projects.Name} value={Projects.Id}>{Projects.Name}</option>)}
-                                    </select>
-                                </div>
+                                    {this.state.ProjectOptions.map((project) => <option value={project.value}>{project.text}</option>)}
+                                </select>
                             </div>
+                        </div>
 
-                            <legend>Preference3</legend>
+                        <legend>Preference3</legend>
 
+                        <div>
                             <div>
-                            <div>
-                            <select  
-                                // value={this.props.chosenProject.Title}
-                                onChange={this.props.handleChange}
-                                name="chosenProject"
-                                class="required"
+                                <select
+                                    // value={this.props.chosenProject.Title}
+                                    onChange={this.props.handleChange}
+                                    name="pref3"
+                                    class="required"
 
-                                > 
+                                >
                                     <option selected="selected">select...</option>
-                                    {this.state.ProjectOptions.map((Projects) => <option key={Projects.Name} value={Projects.Id}>{Projects.Name}</option>)}
-                                    </select>
-                                </div>
+                                    {this.state.ProjectOptions.map((project) => <option value={project.value}>{project.text}</option>)}
+                                </select>
                             </div>
+                        </div>
 
 
 

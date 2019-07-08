@@ -59,10 +59,10 @@ class Nav extends Component {
             <i className="pe-7s-plugin"></i>
             <p>
             Admin
-            <b className="caret"></b>
+            <b></b>
             </p>
           </a>
-          <Collapse in={this.state.adminMenuOpen}>
+          {/* <Collapse in={this.state.adminMenuOpen}>
             <div>
               <ul className="nav">
               <li className={this.isPathActive('/projects') ? 'active' : null}>
@@ -73,7 +73,7 @@ class Nav extends Component {
                 </li>                
               </ul>
             </div>
-          </Collapse>
+          </Collapse> */}
         </li>
 
       </ul>

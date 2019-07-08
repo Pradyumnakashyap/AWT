@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import authlib from "../../../config/authlib"
 
 class ProjectsTable extends Component {
 
@@ -9,6 +10,7 @@ class ProjectsTable extends Component {
       projects: [],
       isLoading: false,
       error: null,
+      isLoggedIn: authlib.isLoggedIn(),
       categoryId: this.props.categoryId
     }
   }
@@ -59,7 +61,8 @@ class ProjectsTable extends Component {
                 <th>Title</th>
                 <th>Pre-req</th>
                 <th>Max Students</th>
-                <th></th>
+                {this.state.isLoggedIn? <th></th>: '' }
+                
               </tr>
             </thead>
             <tbody>
@@ -73,6 +76,7 @@ class ProjectsTable extends Component {
                   <td>{item.Prereq}</td>
                   <td>{item.MaxStudent}</td>
 
+                  {this.state.isLoggedIn? 
                   <td className="text-middle">
                     <Link to={`/projects/${item.ProjectId}`}>
                       <div className="btn btn-info" >info</div>
@@ -85,6 +89,7 @@ class ProjectsTable extends Component {
                   </button>
 
                   </td>
+                  : '' }
                 </tr>
               ))}
             </tbody>

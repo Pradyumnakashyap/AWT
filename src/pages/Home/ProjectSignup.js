@@ -69,18 +69,19 @@ const required= (value) => {
             }
         ]
 
-        var postdata = [];
+        // var postdata = [];
 
-        var projectObj = {
-            studentid:1,
-            projectId:1,
-            preference:1
-        }
-        postdata.push(projectObj);
+        // var projectObj = {
+        //     studentid:1,
+        //     projectId:1,
+        //     preference:1
+        // }
+        // postdata.push(projectObj);
 
 
         console.log(values)
-    
+        
+        
         fetch("http://localhost:8000/studentproject", {
           method: 'POST',
           headers: {
@@ -89,7 +90,7 @@ const required= (value) => {
           },
           body: JSON.stringify({
             
-            "studentid": values.target[1].value,
+            "studentid": el,
             "projectid": values.target[10].value,
             "preference": 1,
           })
@@ -98,24 +99,24 @@ const required= (value) => {
           .then(data => {
             console.log(data)
           })
-          fetch("http://localhost:8000/students", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': fetchOption.headers['x-access-token']
-          },
-          body: JSON.stringify({
+        //   fetch("http://localhost:8000/students", {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'x-access-token': fetchOption.headers['x-access-token']
+        //   },
+        //   body: JSON.stringify({
             
-            "studentid": values.target[1].value,
-            "name": values.target[0].value,
-            "email": values.target[2].value,
-          })
-        })
-          .then(res => res.json())
-          .then(data => {
-            console.log(data)
-            this.setState({ registered: true });
-          })
+        //     "studentid": values.target[1].value,
+        //     "name": values.target[0].value,
+        //     "email": values.target[2].value,
+        //   })
+        // })
+        //   .then(res => res.json())
+        //   .then(data => {
+        //     console.log(data)
+        //     this.setState({ registered: true });
+        //   })
       }
 
     render() {

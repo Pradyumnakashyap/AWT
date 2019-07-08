@@ -5,13 +5,13 @@ import cx from "classnames";
 import { setMobileNavVisibility } from "../../reducers/Layout";
 import { withRouter } from "react-router-dom";
 
-import Header from "./Header";
-import Footer from "./Footer";
-import SideBar from "../../components/SideBar";
-import ThemeOptions from "../../components/ThemeOptions";
-import MobileMenu from "../../components/MobileMenu";
-import addUser from "../Forms/RegularForms/StackedForm";
-import registerPackage from "../Forms/RegularForms/Register";
+import Header from './Header';
+import Footer from './Footer';
+import SideBar from '../../components/SideBar';
+import ThemeOptions from '../../components/ThemeOptions';
+import MobileMenu from '../../components/MobileMenu';
+import addUser from '../Forms/RegularForms/SignUp'
+import registerPackage from '../Forms/RegularForms/Register'
 /**
  * Pages
  */
@@ -22,6 +22,7 @@ import Login from '../Login'
 import adminDashboard from '../Home/adminDashboard'
 import category from '../Home/categorypage'
 import studentProject from '../Home/StudentRegister'
+import ProjectSignup from '../Home/ProjectSignup'
 
 const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
   history.listen(() => {
@@ -49,6 +50,7 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/admin" component={adminDashboard} />
           <Route exact path="/category" component={category} />
           <Route exact path="/StudentRegister" component={studentProject} />
+          <Route exact path="/ProjectSignup" component={ProjectSignup} />
           <Footer />
         </div>
       </div>

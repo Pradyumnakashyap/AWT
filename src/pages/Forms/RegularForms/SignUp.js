@@ -9,45 +9,39 @@ const validate = values => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
-  if (!values.password) {
-    errors.password = 'Password is required';
-  } else if (values.password.length < 6) {
-    errors.password = 'Must be 6 characters or more';
+  if (!values.required) {
+    errors.required = 'Please enter your name';
+  }
+  if (!values.required1) {
+    errors.required1 = 'Please enter your matriculation number'
   }
   return errors;
 };
 
-const StackedForm = ({
+const SignUp = ({
   submitting,
   handleSubmit,
   submitForm
 }) => (
   <div className="card">
     <div className="header">
-      <h4>Add Postman</h4>
+      <h4>Sign up for a project</h4>
     </div>
     <div className="content">
       <form onSubmit={handleSubmit}>
-        {/*<div className="form-group">
-          <label className="control-label">Email</label>
-          <Field
-            name="email"
-            type="email"
-            component={renderField} />
-        </div>*/}
 
         <div className="form-group">
-          <label className="control-label">First Name</label>
+          <label className="control-label">Full Name</label>
           <Field
-            name="placeholder"
+            name="required"
             type="text"
             component={renderField} />
         </div>
 
         <div className="form-group">
-          <label className="control-label">Last Name</label>
+          <label className="control-label">Matriculation Number</label>
           <Field
-            name="placeholder"
+            name="required1"
             type="text"
             component={renderField} />
         </div>
@@ -60,19 +54,15 @@ const StackedForm = ({
             component={renderField} />
         </div>
 
-        <Field
-          name="newsletter"
-          type="checkbox"
-          component={renderField}
-          label="Send Invitation Link" />
+        
 
-        <button type="submit" className="btn btn-fill btn-info" enabled={submitting}>Add Postman</button>
+        <button type="submit" className="btn btn-fill btn-info" enabled={submitting}>Submit</button>
       </form>
     </div>
   </div>
 );
 
 export default reduxForm({
-  form: 'stackedForm',
+  form: 'SignUp',
   validate
-})(StackedForm)
+})(SignUp)

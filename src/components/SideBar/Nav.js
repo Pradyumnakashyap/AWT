@@ -45,8 +45,8 @@ class Nav extends Component {
                 <li className={this.isPathActive('/projects') ? 'active' : null}>
                   <Link to="/projects">View Projects</Link>
                 </li>
-                <li className={this.isPathActive('/components/grid') ? 'active' : null}>
-                  <Link to="/StudentRegister">Project Sign up</Link>
+                <li className={this.isPathActive('/ProjectSignup') ? 'active' : null}>
+                  <Link to="/ProjectSignup">Project Sign up</Link>
                 </li>
               </ul>
             </div>

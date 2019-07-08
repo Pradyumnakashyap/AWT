@@ -392,7 +392,7 @@ class ProjectSignup extends React.Component {
                             name="checkbox1"
                             type="checkbox"
                             label="I hereby Agree to comply by the "
-                            validate={required1}
+                            validate={required}
                             component={renderField} />
 
 GDPR regulations </a>

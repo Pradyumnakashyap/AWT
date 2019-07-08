@@ -24,5 +24,11 @@ const getFetchOptions = (requesttype) => {
     return options;
 }
 
+const isLoggedIn = () =>{
+    
+    var userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+    if(userObj && userObj.token) return true;
+    else return false;
+}
 
-module.exports = { getUserObj, getFetchOptions }
+module.exports = { getUserObj, getFetchOptions, isLoggedIn }

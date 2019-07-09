@@ -220,9 +220,6 @@ class ProjectSignup extends React.Component {
         return (
             <div className="card">
                 <div className="content">
-                    <Alert variant="success" className={this.state.registered ? 'visible' : 'hidden'}>
-                        Your selection has been completed
-                    </Alert>
                     <form onSubmit={this.handleSubmit} className="form-horizontal">
 
                         <legend>Signup for a Project</legend>
@@ -400,6 +397,9 @@ GDPR regulations </a>
                         </div>
                         <button type="submit" className="btn btn-fill btn-info right">Sign Up</button>
                     </form>
+                    <Alert variant="success" className={this.state.registered ? 'visible' : 'hidden'}>
+                    Your selection has been confirmed and confirmation on email has been sent! Thank you! 
+                </Alert>
                 </div>
             </div>
         )

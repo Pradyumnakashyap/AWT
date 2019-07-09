@@ -31,7 +31,7 @@ const Header = ({
         <Navbar.Form pullLeft>
         </Navbar.Form>
         <Nav pullRight>
-        {(global.IsAuthenticated = true)? (<NavItem onClick={()=> handleLogout()}><a  href="/" ></a>Log out</NavItem>):('') 
+        {/* {(global.IsAuthenticated = true)? (<NavItem onClick={()=> handleLogout()}><a  href="/" ></a>Log out</NavItem>):('')  */}
       }
         </Nav>
       </Navbar.Collapse>

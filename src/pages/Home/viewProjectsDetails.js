@@ -2,8 +2,7 @@
 
 import React from 'react';
 import ProjectsTableDetails from '../Tables/ExtendedTables/ProjectsTableDetails';
-import TabGroup from '../Components/Panels/TabGroup'
-import { Tabs, Tab } from 'react-bootstrap';
+
 
 // const Dashboard = () => (
 class viewProjects extends React.Component {
